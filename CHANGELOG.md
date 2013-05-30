@@ -1,3 +1,8 @@
+4.0.x
+===
+
+* Refactor Builder to be independent of Thor
+
 3.1.1
 ===
 

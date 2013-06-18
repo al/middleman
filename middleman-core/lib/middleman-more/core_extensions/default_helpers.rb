@@ -1,30 +1,3 @@
-# Required to hack around Padrino blocks within different template types.
-require 'rbconfig'
-if RUBY_VERSION =~ /1.8/ && RbConfig::CONFIG['ruby_install_name'] == 'ruby'
-  begin
-    require 'ruby18_source_location'
-  rescue LoadError
-    $stderr.puts "Ruby 1.8 requires the 'ruby18_source_location' gem be added to your Gemfile"
-    exit(1)
-  end
-end
-
-if !defined?(::Padrino::Helpers)
-  require 'vendored-middleman-deps/padrino-core-0.11.2/lib/padrino-core/support_lite'
-  require 'vendored-middleman-deps/padrino-helpers-0.11.2/lib/padrino-helpers'
-end
-    
-class Padrino::Helpers::OutputHelpers::ErbHandler
-  # Force Erb capture not to use safebuffer
-  def capture_from_template(*args, &block)
-    self.output_buffer, _buf_was = "", self.output_buffer
-    captured_block = block.call(*args)
-    ret = eval("@_out_buf", block.binding)
-    self.output_buffer = _buf_was
-    [ ret, captured_block ]
-  end
-end
-
 class Middleman::CoreExtensions::DefaultHelpers < ::Middleman::Extension
 
   def initialize(app, options_hash={}, &block)
@@ -32,15 +5,15 @@ class Middleman::CoreExtensions::DefaultHelpers < ::Middleman::Extension
 
     require 'active_support/core_ext/object/to_query'
 
-    app.helpers ::Padrino::Helpers::OutputHelpers
-    app.helpers ::Padrino::Helpers::TagHelpers
-    app.helpers ::Padrino::Helpers::AssetTagHelpers
-    app.helpers ::Padrino::Helpers::FormHelpers
-    app.helpers ::Padrino::Helpers::FormatHelpers
-    app.helpers ::Padrino::Helpers::RenderHelpers
-    app.helpers ::Padrino::Helpers::NumberHelpers
-    # app.helpers ::Padrino::Helpers::TranslationHelpers
-    app.helpers ::Padrino::Helpers::Breadcrumbs
+    # app.helpers ::Padrino::Helpers::OutputHelpers
+    # app.helpers ::Padrino::Helpers::TagHelpers
+    # app.helpers ::Padrino::Helpers::AssetTagHelpers
+    # app.helpers ::Padrino::Helpers::FormHelpers
+    # app.helpers ::Padrino::Helpers::FormatHelpers
+    # app.helpers ::Padrino::Helpers::RenderHelpers
+    # app.helpers ::Padrino::Helpers::NumberHelpers
+    # # app.helpers ::Padrino::Helpers::TranslationHelpers
+    # app.helpers ::Padrino::Helpers::Breadcrumbs
 
     app.config.define_setting :relative_links, false, 'Whether to generate relative links instead of absolute ones'
   end

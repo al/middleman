@@ -1,5 +1,6 @@
 # Require gem
 require "coffee_script"
+require "active_support/core_ext/class/attribute_accessors"
 
 module Middleman
   module Renderers

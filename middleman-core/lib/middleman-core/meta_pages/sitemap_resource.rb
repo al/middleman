@@ -1,8 +1,3 @@
-if !defined?(::Padrino::Helpers)
-  require 'vendored-middleman-deps/padrino-core-0.11.2/lib/padrino-core/support_lite'
-  require 'vendored-middleman-deps/padrino-helpers-0.11.2/lib/padrino-helpers'
-end
-
 module Middleman
   module MetaPages
     # View class for a sitemap resource

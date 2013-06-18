@@ -2,6 +2,8 @@
 ===
 
 * Refactor Builder to be independent of Thor
+* Drop support for Ruby 1.8
+* Switch from Padrino to ActionPack
 
 3.1.1
 ===

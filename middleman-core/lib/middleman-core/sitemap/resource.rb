@@ -143,10 +143,26 @@ module Middleman
           app.current_path ||= self.destination_path
           # app.render_to_string(source_file, locs, opts, blocks)
           opts[:locals] = locs
-          opts[:template] = Pathname(source_file).relative_path_from(Pathname(app.source_dir))
+          # opts[:template] = Pathname(source_file).relative_path_from(Pathname(app.source_dir))
+
+          # Needs to be rewritten for multiple extensions
+          handler = ::ActionView::Template.handler_for_extension(ext)
+          
+          opts[:template] = Template.new(
+            app.template_data_for_file(source_file), # Remove frontmatter
+            source_file,
+            handler,
+            :locals => locs
+          )
+
           app.render_to_string(opts)
         end
       end
+
+      # def render_template()
+      #   handler = ::ActionView::Template.handler_for_extension(ext)
+      #   Template.new(app.template_data_for_file(source_file), source_file, handler, :locals => locs)
+      # end
 
       # A path without the directory index - so foo/index.html becomes
       # just foo. Best for linking.

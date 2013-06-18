@@ -2,10 +2,14 @@ require "abstract_controller"
 
 # Rendering extension
 module Middleman
+
   module Rendering
     extend ::ActiveSupport::Concern
 
     include ::AbstractController::Rendering
+    # include ::AbstractController::Layouts
+      # AbstractController::Translation,
+      # AbstractController::AssetPaths,
 
     included do
       ::Tilt.mappings.delete('html') # WTF, Tilt?
@@ -29,18 +33,19 @@ module Middleman
       end
     end
 
-    # LookupContext is the object responsible to hold all information required to lookup
-    # templates, i.e. view paths and details. Check ActionView::LookupContext for more
-    # information.
-    def lookup_context
-      paths = [
-        source_dir
-      ]
+    def _normalize_options(options)
+      super
 
-      @_lookup_context ||=
-        ActionView::LookupContext.new(paths, details_for_lookup, [])
+      layout = options.delete(:layout) { :default }
+
+      if layout != false
+        options[:layout] = "layouts/#{layout}"
+      end
     end
 
+    def lookup_context
+      @_lookup_context ||= ::Middleman::LookupContext.new(self, details_for_lookup)
+    end
 
     # Add or overwrite a default template extension
     #
@@ -52,6 +57,21 @@ module Middleman
       @_template_extensions
     end
   end
+
+  class LookupContext < ActionView::LookupContext
+    def initialize(app, details = {}, prefixes = [])
+      view_paths = [
+        app.source_dir
+      ]
+
+      super(view_paths, details, prefixes)
+    end
+  end
+
+  class Template < ::ActionView::Template
+  end
+
+  # class Resolver < ::ActionView::Resolver
 
   class View
     include ::ActionView::Helpers, ::ERB::Util, ::ActionView::Context

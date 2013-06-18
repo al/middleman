@@ -143,7 +143,8 @@ module Middleman
           app.current_path ||= self.destination_path
           # app.render_to_string(source_file, locs, opts, blocks)
           opts[:locals] = locs
-          app.render_to_string(source_file, opts)
+          opts[:template] = Pathname(source_file).relative_path_from(Pathname(app.source_dir))
+          app.render_to_string(opts)
         end
       end
 

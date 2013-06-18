@@ -247,7 +247,7 @@ module Middleman
 
           res['Content-Type'] = resource.content_type || 'text/plain'
 
-          begin
+          # begin
             # Write out the contents of the page
             output = resource.render do
               self.req = req
@@ -257,10 +257,10 @@ module Middleman
             res.write output
             # Valid content is a 200 status
             res.status = 200
-          rescue Middleman::CoreExtensions::Rendering::TemplateNotFound => e
-            res.write "Error: #{e.message}"
-            res.status = 500
-          end
+          # rescue Middleman::CoreExtensions::Rendering::TemplateNotFound => e
+          #   res.write "Error: #{e.message}"
+          #   res.status = 500
+          # end
 
           # End the request
           logger.debug "== Finishing Request: #{current_path} (#{(Time.now - start_time).round(2)}s)"

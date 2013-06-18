@@ -52,7 +52,7 @@ module Middleman
       @app.sitemap.resources.select do |resource|
         resource.ext == ".css"
       end.each do |resource|
-        render_path(resource.destination_path)
+        render_path(resource.request_path)
       end
 
       logger.debug "== Checking for Compass sprites"
@@ -86,7 +86,7 @@ module Middleman
         file_did_output(output_file, Pathname(resource.source_file))
       else
         begin
-          response = render_path(resource.destination_path)
+          response = render_path(resource.request_path)
 
           if response.status == 200
             file_did_output(output_file, binary_encode(response.body))

@@ -27,11 +27,6 @@ platforms :ruby do
   gem "redcarpet"
 end
 
-# Cross-templating language block fix for Ruby 1.8
-platforms :mri_18 do
-  gem "ruby18_source_location"
-end
-
 platforms :jruby do
   gem "therubyrhino"
 end
@@ -42,6 +37,5 @@ gem 'coveralls', :require => false
 
 # Middleman itself
 gem "middleman-core", :path => "middleman-core"
-gem "middleman-more", :path => "middleman-more"
-gem "middleman-sprockets", :github => "middleman/middleman-sprockets"
+# gem "middleman-sprockets", :github => "middleman/middleman-sprockets"
 gem "middleman", :path => "middleman"

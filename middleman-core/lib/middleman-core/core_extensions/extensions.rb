@@ -145,13 +145,13 @@ module Middleman
           ::Middleman::Extension.clear_after_extension_callbacks
           run_hook :initialized
 
-          if config[:autoload_sprockets]
-            begin
-              require "middleman-sprockets"
-              activate(:sprockets)
-            rescue LoadError
-            end
-          end
+          # if config[:autoload_sprockets]
+          #   begin
+          #     require "middleman-sprockets"
+          #     activate(:sprockets)
+          #   rescue LoadError
+          #   end
+          # end
 
           run_hook :before_configuration
 

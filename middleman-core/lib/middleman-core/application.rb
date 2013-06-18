@@ -5,8 +5,8 @@ require "tilt"
 require "i18n"
 
 # Use ActiveSupport JSON
-require "active_support/json"
-require "active_support/core_ext/integer/inflections"
+require "active_support"
+# require "active_support/core_ext/integer/inflections"
 
 # Simple callback library
 require "vendored-middleman-deps/hooks-0.2.0/lib/hooks"
@@ -146,7 +146,7 @@ module Middleman
     register Middleman::CoreExtensions::Data
 
     # Setup custom rendering
-    include Middleman::CoreExtensions::Rendering
+    include Middleman::Rendering
 
     # Parse YAML from templates. Must be before sitemap so sitemap
     # extensions see updated frontmatter!

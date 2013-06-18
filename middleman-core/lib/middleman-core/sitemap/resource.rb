@@ -141,7 +141,9 @@ module Middleman
           blocks << block if block_given?
 
           app.current_path ||= self.destination_path
-          app.render_template(source_file, locs, opts, blocks)
+          # app.render_to_string(source_file, locs, opts, blocks)
+          opts[:locals] = locs
+          app.render_to_string(source_file, opts)
         end
       end
 

@@ -146,7 +146,7 @@ module Middleman
     register Middleman::CoreExtensions::Data
 
     # Setup custom rendering
-    register Middleman::CoreExtensions::Rendering
+    include Middleman::CoreExtensions::Rendering
 
     # Parse YAML from templates. Must be before sitemap so sitemap
     # extensions see updated frontmatter!

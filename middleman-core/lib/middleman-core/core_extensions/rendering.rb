@@ -63,15 +63,15 @@ module Middleman
     def initialize(context = nil, assigns = {}, controller = nil, formats = nil) #:nodoc:
       @_config = ActiveSupport::InheritableOptions.new
 
-      if context.is_a?(ActionView::Renderer)
+      # if context.is_a?(ActionView::Renderer)
         @view_renderer = context
-      else
-        lookup_context = context.is_a?(ActionView::LookupContext) ?
-          context : ActionView::LookupContext.new(context)
-        lookup_context.formats  = formats if formats
-        lookup_context.prefixes = controller._prefixes if controller
-        @view_renderer = ActionView::Renderer.new(lookup_context)
-      end
+      # else
+      #   lookup_context = context.is_a?(ActionView::LookupContext) ?
+      #     context : ActionView::LookupContext.new(context)
+      #   lookup_context.formats  = formats if formats
+      #   lookup_context.prefixes = controller._prefixes if controller
+      #   @view_renderer = ActionView::Renderer.new(lookup_context)
+      # end
 
       assign(assigns)
       # assign_controller(controller)
